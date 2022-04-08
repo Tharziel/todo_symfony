@@ -1,0 +1,31 @@
+body {
+  background-color: #ff897e;
+}
+
+body .container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 10em;
+  border: solid 2px black;
+  margin-bottom: 2px;
+  margin-top: 2px;
+  padding: 2px;
+}
+
+body .container hr {
+  width: 3em;
+}
+
+body .container .task_title {
+  text-align: center;
+}
+
+body .title {
+  text-align: center;
+}
+/*# sourceMappingURL=style.css.map */

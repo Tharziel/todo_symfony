@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+<h1 class="title">Todo List</h1>
+
+{% for task in tasks %}
+ <section class="thibzee">
+<div class ="container">
+<p class="task_title">{{ task.title}}</p>
+<hr>
+<p>{{ task.content }}</p>
+</div>
+</section>
+{% endfor %}
+{% endblock %}

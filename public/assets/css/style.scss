@@ -1,0 +1,27 @@
+$color: #ff897e;
+$color-border: black;
+
+body{
+    
+    background-color: $color;
+    .container{
+        display: flex;
+        flex-direction: column;
+        width: 10em;
+        border: solid 2px $color-border;
+        margin-bottom: 2px;
+        margin-top: 2px;
+        padding: 2px;
+        hr{
+         width: 3em;
+        }
+        .task_title{
+            text-align: center;
+        }    
+        
+    }
+    .title{
+        text-align: center;
+        }
+        
+}
