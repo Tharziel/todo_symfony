@@ -1,27 +1,27 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
 body {
   background-color: #ff897e;
 }
 
-body .container {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+body .thibzee {
   width: 10em;
   border: solid 2px black;
   margin-bottom: 2px;
   margin-top: 2px;
-  padding: 2px;
+  padding: 5px;
+  display: inline-block;
 }
 
-body .container hr {
+body .thibzee hr {
+  margin: auto;
   width: 3em;
 }
 
-body .container .task_title {
+body .thibzee .task_title {
   text-align: center;
 }
 

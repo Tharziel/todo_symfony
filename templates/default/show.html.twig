@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+{% block title %}Tâche{% endblock %}
+{% block body %}
+<div class="thibzee">
+    <p>
+
+        {{task.title}}
+    </p>
+    <p>
+        {{task.content}}
+
+    </p>
+    <a href="{{ path('editpage', {id:task.id})}}">Modifier la tâche</a>
+    <a href="{{ path('deletepage', {id:task.id})}}">Supprimer la tâche</a>
+</div>
+{% endblock %}
