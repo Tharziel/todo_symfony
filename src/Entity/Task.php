@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Repository\TaskRepository;
+
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\TaskRepository;
 
 /**
  * @ORM\Entity(repositoryClass=TaskRepository::class)

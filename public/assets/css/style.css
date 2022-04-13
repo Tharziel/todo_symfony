@@ -1,10 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@1,300&display=swap");
 * {
   margin: 0;
   padding: 0;
+  font-family: "Roboto Condensed", sans-serif;
 }
 
 body {
-  background-color: #ff897e;
+  background-color: #2e7ea3;
 }
 
 body .thibzee {
@@ -27,5 +29,25 @@ body .thibzee .task_title {
 
 body .title {
   text-align: center;
+}
+
+.unordered {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  margin: 2px;
+}
+
+.unordered li {
+  padding-left: 10px;
+  list-style: none;
+}
+
+.unordered li a {
+  text-decoration: none;
 }
 /*# sourceMappingURL=style.css.map */

@@ -3,8 +3,10 @@
 namespace App\Form;
 
 use App\Entity\Task;
+use App\Entity\Category;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -39,6 +41,12 @@ class TaskType extends AbstractType
                         'minMessage' => 'Votre contenu doit contenir au moins {{ limit }} caractères.'
                         ])
                 ]
+            ])
+
+            ->add('category', EntityType::class, [
+                'class' => Category::class,
+                'choice_label' => 'name',
+                'placeholder' => 'Choix catégorie'
             ])
             
         ;

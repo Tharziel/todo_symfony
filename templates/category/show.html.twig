@@ -1,16 +1,12 @@
 {% extends 'base.html.twig' %}
-{% block title %}Tâche{% endblock %}
+{% block title %}Catégorie{% endblock %}
 {% block body %}
 <div class="thibzee">
     <p>
 
-        {{task.title}}
+        {{category.name}}
     </p>
-    <p>
-        {{task.content}}
-
-    </p>
-    <a href="{{ path('editpage', {id:task.id})}}">Modifier la tâche</a>
-    <a href="{{ path('deletepage', {id:task.id})}}">Supprimer la tâche</a>
+    <a href="{{ path('editcategory', {id:category.id})}}">Modifier la catégorie</a>
+    <a href="{{ path('deletecategory', {id:category.id})}}">Supprimer la catégorie</a>
 </div>
 {% endblock %}

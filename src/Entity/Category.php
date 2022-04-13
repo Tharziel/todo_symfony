@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\CategoryRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Task;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CategoryRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
@@ -25,7 +26,7 @@ class Category
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity=task::class, mappedBy="category", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Task::class, mappedBy="category", orphanRemoval=true)
      */
     private $todos;
 
@@ -52,14 +53,14 @@ class Category
     }
 
     /**
-     * @return Collection<int, task>
+     * @return Collection<int, Task>
      */
     public function getTodos(): Collection
     {
         return $this->todos;
     }
 
-    public function addTodo(task $todo): self
+    public function addTodo(Task $todo): self
     {
         if (!$this->todos->contains($todo)) {
             $this->todos[] = $todo;
@@ -69,7 +70,7 @@ class Category
         return $this;
     }
 
-    public function removeTodo(task $todo): self
+    public function removeTodo(Task $todo): self
     {
         if ($this->todos->removeElement($todo)) {
             // set the owning side to null (unless already changed)
