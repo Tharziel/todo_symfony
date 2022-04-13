@@ -3,10 +3,11 @@
 namespace App\DataFixtures;
 
 use App\Entity\Task;
-use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-class TodoFixtures extends Fixture
+class TodoFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
@@ -17,10 +18,17 @@ class TodoFixtures extends Fixture
         $task->setIsDone(0);
         $task->setCreatedAt(new \DatetimeImmutable());
         $task->setDoneAt(new \DatetimeImmutable());
+        $task->setCategory($this->getReference("cat" .$i));
 
 
         $manager->persist($task);
     }
         $manager->flush();
+    }
+    public function getDependencies()
+    {
+        return [
+            CategoryFixtures::class,
+        ];
     }
 }
