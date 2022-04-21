@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class TaskType extends AbstractType
 {
@@ -47,6 +48,9 @@ class TaskType extends AbstractType
                 'class' => Category::class,
                 'choice_label' => 'name',
                 'placeholder' => 'Choix catégorie'
+            ])
+            ->add('isDone', CheckboxType::class, [
+                'required' => false
             ])
             
         ;

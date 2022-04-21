@@ -6,6 +6,7 @@ namespace App\Controller;
 use Exception;
 use App\Entity\Task;
 use App\Form\TaskType;
+use App\Form\FilterType;
 use App\Repository\TaskRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,11 +19,27 @@ class DefaultController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    public function home(TaskRepository $repo): Response
+    public function home(TaskRepository $repo, Request $request): Response
     {
-        $tasks = $repo->findAll();
+
+        $filter = $this->createForm(FilterType::class);
+        $filter->handleRequest($request);
+        $tasks = $repo ->findAll();
+
+        if($filter->isSubmitted() && $filter->isValid()){
+            $category = $filter['category']->getData();
+            $order = ($filter['createdAt']->getData()? 'ASC' : 'DESC');
+            $done = $filter['isDone']->getData();
+            $tasks = $repo->filterTask($category, $done, $order);
+           
+        }
+
+
+
+        
         return $this->render('default/home.html.twig', [
-            'tasks' => $tasks
+            'tasks' => $tasks,
+            'filter'=> $filter->createView()
         ]);
     }
 
@@ -37,10 +54,10 @@ class DefaultController extends AbstractController
         ]);
     }
 
-        /**
+    /**
      * @Route("/new", name="newpage")
      */
-    public function new(TaskRepository $repo, EntityManagerInterface $em, Request $request): Response
+    public function new( EntityManagerInterface $em, Request $request): Response
     {   
         $task = new Task();
         $form = $this->createForm(TaskType::class, $task);
@@ -55,8 +72,10 @@ class DefaultController extends AbstractController
             $em->persist($task);
             try{
                 $em->flush();
+                $this->addFlash('success', 'Tâche créée !');
                 return $this->redirectToRoute('homepage');
             }catch(Exception $e){
+                $this->addFlash('danger', 'Erreur lors de la création de la tâche !'); 
                 return $this->redirectToRoute('newpage');
             }
 
@@ -77,9 +96,14 @@ class DefaultController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
- 
-            $em->flush();
-            return $this->redirectToRoute('homepage', ['id' => $id]);
+            try{
+                $em->flush();
+                $this->addFlash('success', 'Tâche modifié !');
+                return $this->redirectToRoute('homepage', ['id' => $id]);
+            }catch(Exception $e){
+                $this->addFlash('danger', 'Erreur lors de la modification de la tâche !'); 
+            }
+            
          
 
         }
@@ -94,9 +118,14 @@ class DefaultController extends AbstractController
      */
     public function delete(Task $task, EntityManagerInterface $em, Request $request, $id): Response
     {
-       
+            try{
             $em->remove($task);
             $em->flush();
+            $this->addFlash('success', 'Tâche supprimée !');
+            }catch(Exception $e){
+            $this->addFlash('danger', 'Erreur lors de la suppression de la tâche !');
+            }
+            
 
             return $this->redirectToRoute('homepage');
     }

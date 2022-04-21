@@ -2,7 +2,9 @@
 
 $roboto: 'Roboto Condensed', sans-serif;
 $color: #2e7ea3;
-$color-border: black;
+$red: #a32e30;
+$brown: #a37a2e;
+$black: black;
 
 *{
     margin: 0;
@@ -10,21 +12,30 @@ $color-border: black;
     font-family: $roboto;
 }
 body{
+    h1{
+        margin-bottom: 100px;
+        margin-right: 50px;
+    }
     
     background-color: $color;
+    margin-left: 50px;
+    
 
-    .thibzee{
+    .container{
+        height: 10em;
         width: 10em;
-        border: solid 2px $color-border;
+        border: solid 2px $black;
         margin-bottom: 2px;
         margin-top: 2px;
         padding: 5px;
-        
+        overflow-y: auto;
         display: inline-block;
         
         hr{
         margin:auto;
-         width: 3em;
+        width: 3em;
+        background-color: $black;
+        //border-color: $color-border;
         }
         .task_title{
             text-align: center;
@@ -34,7 +45,21 @@ body{
     .title{
         text-align: center;
         }
+
+    .flash-success{
+        background-color: green;
+    }
+
+    .flash-danger{
+        background-color: red;
+    }
+   
         
+}
+header{
+    background-color: $brown;
+    margin: auto;
+    height: 5em;
 }
 
 .unordered{
@@ -44,9 +69,23 @@ body{
     li{
         padding-left: 10px;
         list-style: none;
-        a{
-            text-decoration: none;
+    }
+    a{
+        text-decoration: none;
+        &:hover{
+            color: $black
+        }
+        &:link{
+            color: $black
+        }
+        &:active{
+            color: $black
+        }
+        &:visited{
+            color: $black
         }
     }
 }
+
+
 

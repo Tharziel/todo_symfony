@@ -7,28 +7,51 @@
 
 body {
   background-color: #2e7ea3;
+  margin-left: 50px;
 }
 
-body .thibzee {
+body h1 {
+  margin-bottom: 100px;
+  margin-right: 50px;
+}
+
+body .container {
+  height: 10em;
   width: 10em;
   border: solid 2px black;
   margin-bottom: 2px;
   margin-top: 2px;
   padding: 5px;
+  overflow-y: auto;
   display: inline-block;
 }
 
-body .thibzee hr {
+body .container hr {
   margin: auto;
   width: 3em;
+  background-color: black;
 }
 
-body .thibzee .task_title {
+body .container .task_title {
   text-align: center;
 }
 
 body .title {
   text-align: center;
+}
+
+body .flash-success {
+  background-color: green;
+}
+
+body .flash-danger {
+  background-color: red;
+}
+
+header {
+  background-color: #a37a2e;
+  margin: auto;
+  height: 5em;
 }
 
 .unordered {
@@ -47,7 +70,23 @@ body .title {
   list-style: none;
 }
 
-.unordered li a {
+.unordered a {
   text-decoration: none;
+}
+
+.unordered a:hover {
+  color: black;
+}
+
+.unordered a:link {
+  color: black;
+}
+
+.unordered a:active {
+  color: black;
+}
+
+.unordered a:visited {
+  color: black;
 }
 /*# sourceMappingURL=style.css.map */

@@ -3,10 +3,11 @@
 namespace App\Repository;
 
 use App\Entity\Task;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\OptimisticLockException;
+use App\Entity\Category;
 use Doctrine\ORM\ORMException;
+use Doctrine\ORM\OptimisticLockException;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Task|null find($id, $lockMode = null, $lockVersion = null)
@@ -43,6 +44,36 @@ class TaskRepository extends ServiceEntityRepository
         if ($flush) {
             $this->_em->flush();
         }
+    }
+    /** 
+    * @param Category $category
+    * @param string $order
+    * @param Done $done
+    * @return Task[]
+    */
+    public function filterTask(?Category $category, ?bool $done, ?string $order) : array //
+    {
+        $query = $this->createQueryBuilder('p');
+
+        if($category)
+        {
+            $query = $query->andWhere('p.category = :category');
+            $query->setParameter('category', $category);
+        }
+
+         if($done !== null)
+         {
+             $query = $query->andWhere('p.isDone = :isDone');
+             $query->setParameter('isDone', $done);
+         }
+
+         if($order){
+            $query = $query->OrderBy('p.createdAt', $order);
+         }
+         $finalQuery = $query->getQuery()
+        ->getResult();
+
+        return $finalQuery;
     }
 
     // /**
