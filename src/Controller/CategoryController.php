@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Exception;
+use App\Service\Upload;
 use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
@@ -40,13 +41,29 @@ class CategoryController extends AbstractController
         /**
      * @Route("/newcat", name="newcategory")
      */
-    public function new(CategoryRepository $repo, EntityManagerInterface $em, Request $request): Response
+    public function new(CategoryRepository $repo, EntityManagerInterface $em, Upload $fileUploader, Request $request): Response
     {   
+        
         $category = new Category();
+        $oldAvatar = $category->getAvatar();
         $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
+
+            if($category->getAvatar() === null){
+                $category->setAvatar('default.jpg');
+            }else{
+                $avatarFile = $form->get('avatar')->getData();
+                if($avatarFile){
+                    if($avatarFile !== 'default.jpg'){
+                        $fileUploader->fileDelete($oldAvatar);
+                    }
+                    $avatarFileName = $fileUploader->upload($avatarFile);
+                    $category->setAvatar($avatarFileName);
+                }
+            }
+
             $category->setName($form->getData()->getName());
            
             $em->persist($category);
@@ -67,13 +84,27 @@ class CategoryController extends AbstractController
     /**
      * @Route("/editcat/{id}", name="editcategory")
      */
-    public function edit(Category $category, EntityManagerInterface $em, Request $request, $id): Response
+    public function edit(Category $category, EntityManagerInterface $em, Upload $fileUploader, Request $request, $id): Response
     {
        
+        $oldAvatar = $category->getAvatar();
         $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
+
+            if($category->getAvatar() === null){
+                $category->setAvatar('default.jpg');
+            }else{
+                $avatarFile = $form->get('avatar')->getData();
+                if($avatarFile){
+                    if($avatarFile !== 'default.jpg'){
+                        $fileUploader->fileDelete($oldAvatar);
+                    }
+                    $avatarFileName = $fileUploader->upload($avatarFile);
+                    $category->setAvatar($avatarFileName);
+                }
+            }
  
             $em->flush();
             return $this->redirectToRoute('homecategory', ['id' => $id]);

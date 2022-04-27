@@ -16,6 +16,7 @@
         {% endblock %}
     </head>
 <header>
+    {% if app.user %}
         <ul class="unordered">
             <li>
             <a href="{{ path('homepage') }}">Listes des tâches</a>
@@ -29,10 +30,29 @@
             <li>
             <a href="{{ path('newcategory') }}">Créer une catégorie</a>
             </li>
+            <li>
+            <a href="{{ path('app_logout') }}">Se déconnecter</a>
+            </li>
         </ul>
+    
+    {% else %}
+        <ul class="unordered">
+            <li>
+                <a href="{{ path('homepage') }}">Listes des tâches</a>
+            </li>
+            <li>
+                <a href="{{ path('app_login') }}">Se connecter</a>
+            </li>
+            <li>
+                <a href="{{ path('app_register') }}">S'inscrire</a>
+            </li>
+        </ul>
+     
+    {% endif %}
+        
     </header>
     <body>
-        
+        <p> {% trans %}not_translated{% endtrans %}</p>
     {% for label, messages in app.flashes %}
         {% for message in messages %}
             <div class="flash-{{ label }}">

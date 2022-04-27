@@ -5,7 +5,9 @@
     <p>
 
         {{category.name}}
+
     </p>
+    <img class="img-thumbnail" src="{{ asset('assets/images/avatars/' ~ category.avatar) }}" alt="Avatar">
     <a href="{{ path('editcategory', {id:category.id})}}">Modifier la catégorie</a>
     <a href="{{ path('deletecategory', {id:category.id})}}">Supprimer la catégorie</a>
 </div>
